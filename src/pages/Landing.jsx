@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../styles/Landing.css";
-import { Hero, ProductElement, Stats } from "../components";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Hero, ProductElement } from "../components";
+import { useLoaderData } from "react-router-dom";
 import axios from "axios";
 
 export const landingLoader = async () => {
@@ -15,16 +15,13 @@ export const landingLoader = async () => {
 
 const Landing = () => {
   const { products } = useLoaderData();
-  const navigate = useNavigate();
 
   return (
     <main>
       <Hero />
-      <Stats />
-
       <div className="selected-products">
         <h2 className="text-6xl text-center my-12 max-md:text-4xl text-accent-content">
-          Trending Products
+          Productos seleccionados
         </h2>
         <div className="selected-products-grid max-w-7xl mx-auto">
           {products.map((product) => (

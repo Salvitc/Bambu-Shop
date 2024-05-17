@@ -5,7 +5,7 @@ import { SectionTitle } from "../components";
 const Contact = () => {
   return (
     <>
-      <SectionTitle title="Contacta con nosotros" path="Inicio | Contacto" />
+      <SectionTitle title="Contacta con nosotros" path="Home | Contact" />
       <div className="isolate px-6 lg:px-8">
         <Form
           action="#"
@@ -18,7 +18,7 @@ const Contact = () => {
                 htmlFor="first-name"
                 className="block text-sm font-semibold leading-6 text-accent-content"
               >
-                Nombre
+                First name
               </label>
               <div className="mt-2.5">
                 <input
@@ -35,7 +35,7 @@ const Contact = () => {
                 htmlFor="last-name"
                 className="block text-sm font-semibold leading-6 text-accent-content"
               >
-                Apellidos 
+                Last name
               </label>
               <div className="mt-2.5">
                 <input
@@ -43,6 +43,23 @@ const Contact = () => {
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="company"
+                className="block text-sm font-semibold leading-6 text-accent-content"
+              >
+                Company
+              </label>
+              <div className="mt-2.5">
+                <input
+                  type="text"
+                  name="company"
+                  id="company"
+                  autoComplete="organization"
                   className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -69,7 +86,7 @@ const Contact = () => {
                 htmlFor="phone-number"
                 className="block text-sm font-semibold leading-6 text-accent-content"
               >
-                Teléfono
+                Phone number
               </label>
               <div className="relative mt-2.5">
                 <input
@@ -86,7 +103,7 @@ const Contact = () => {
                 htmlFor="message"
                 className="block text-sm font-semibold leading-6 text-accent-content"
               >
-                Mensaje 
+                Message
               </label>
               <div className="mt-2.5">
                 <textarea
@@ -106,7 +123,7 @@ const Contact = () => {
                   aria-checked="false"
                   aria-labelledby="switch-1-label"
                 >
-                  <span className="sr-only text-accent-content">Aceptar las políticas</span>
+                  <span className="sr-only text-accent-content">Agree to policies</span>
 
                   <span
                     aria-hidden="true"
@@ -115,9 +132,9 @@ const Contact = () => {
                 </button>
               </div>
               <label className="text-sm leading-6 text-accent-content" id="switch-1-label">
-                    Al seleccionar esto, aceptas nuestra 
+                By selecting this, you agree to our
                 <a href="#" className="font-semibold text-blue-500">
-                &nbsp;política de&nbsp;privacidad
+                &nbsp;privacy&nbsp;policy
                 </a>
                 .
               </label>
@@ -128,7 +145,7 @@ const Contact = () => {
               type="submit"
               className="block w-full rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Hablemos
+              Let's talk
             </button>
           </div>
         </Form>

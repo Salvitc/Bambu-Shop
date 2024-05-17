@@ -25,10 +25,10 @@ const Login = () => {
 
     if (email.length === 0) {
       isProceed = false;
-      toast.warn("Please enter a email");
+      toast.warn("El email es requerido");
     } else if (password.length < 6) {
       isProceed = false;
-      toast.warn("Password must be minimum 6 characters");
+      toast.warn("La contraseña debe tener al menos 6 caracteres");
     }
     return isProceed;
   };
@@ -44,29 +44,29 @@ const Login = () => {
             (item) => item.email === email && item.password === password
           );
           if (foundUser[0]) {
-            toast.success("Login successful");
+            toast.success("Login correcto");
             localStorage.setItem("id", foundUser[0].id);
             store.dispatch(loginUser());
             navigate("/");
           } else {
-            toast.warn("Email or password is incorrect");
+            toast.warn("Email o contraseña incorrectos");
           }
         })
         .catch((err) => {
-          toast.error("Login failed due to: " + err.message);
+          toast.error("Error en login: " + err.message);
         });
     }
   };
 
   return (
     <>
-      <SectionTitle title="Login" path="Home | Login" />
+      <SectionTitle title="Login" path="Inicio | Login" />
       <div className="flex flex-col justify-center sm:py-12">
         <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
           <div className="bg-dark border border-gray-600 shadow w-full rounded-lg divide-y divide-gray-200">
             <form className="px-5 py-7" onSubmit={proceedLogin}>
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                E-mail
+                Email
               </label>
               <input
                 value={email}
@@ -76,7 +76,7 @@ const Login = () => {
                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                Password
+                Contraseña
               </label>
               <input
                 type="password"
@@ -113,7 +113,7 @@ const Login = () => {
               className="btn btn-neutral text-white"
               onClick={() => window.scrollTo(0, 0)}
             >
-              Don't have an account? Please register.
+              ¿No tienes cuenta? Regístrate
             </Link>
           </div>
         </div>

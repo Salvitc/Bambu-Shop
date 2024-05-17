@@ -12,7 +12,7 @@ const Cart = () => {
 
   const isCartEmpty = () => {
     if(cartItems.length === 0){
-      toast.error("Your cart is empty");
+      toast.error("Tu carrito está vacío");
     }else{
       navigate("/thank-you");
     }
@@ -20,7 +20,7 @@ const Cart = () => {
 
   return (
     <>
-    <SectionTitle title="Cart" path="Home | Cart" />
+    <SectionTitle title="Carrito" path="Home | Carrito" />
     <div className='mt-8 grid gap-8 lg:grid-cols-12 max-w-7xl mx-auto px-10'>
         <div className='lg:col-span-8'>
           <CartItemsList />
@@ -29,11 +29,11 @@ const Cart = () => {
           <CartTotals />
           {loginState ? (
             <button onClick={isCartEmpty} className='btn bg-blue-600 hover:bg-blue-500 text-white btn-block mt-8'>
-              order now
+              Procede al pago
             </button>
           ) : (
             <Link to='/login' className='btn bg-blue-600 hover:bg-blue-500 btn-block text-white mt-8'>
-              please login
+              Por favor, inicia sesión
             </Link>
           )}
         </div>

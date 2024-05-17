@@ -21,28 +21,28 @@ const Register = () => {
 
     if (name.length === 0) {
       isProceed = false;
-      errorMessage = "Please enter the value in username field";
+      errorMessage = "Por favor, ingrese un valor en el campo de nombre";
     } else if (lastname.length === 0) {
       isProceed = false;
-      errorMessage = "Please enter the value in lastname field";
+      errorMessage = "Por favor, ingrese un valor en el campo de apellido";
     } else if (email.length === 0) {
       isProceed = false;
-      errorMessage = "Please enter the value in email field";
+      errorMessage = "Por favor, ingrese un valor en el campo de correo electrónico";
     } else if (phone.length < 4) {
       isProceed = false;
-      errorMessage = "Phone must be longer than 3 characters";
+      errorMessage = "El teléfono debe tener más de 3 caracteres";
     } else if (adress.length < 4) {
       isProceed = false;
-      errorMessage = "Adress must be longer than 3 characters";
+      errorMessage = "La dirección debe tener más de 3 caracteres";
     } else if (password.length < 6) {
       isProceed = false;
-      errorMessage = "Please enter a password longer than 5 characters";
+      errorMessage = "Por favor, ingrese una contraseña de más de 5 caracteres";
     } else if (confirmPassword.length < 6) {
       isProceed = false;
-      errorMessage = "Please enter a confirm password longer than 5 characters";
+      errorMessage = "Por favor, ingrese una confirmación de contraseña de más de 5 caracteres";
     } else if (password !== confirmPassword) {
       isProceed = false;
-      errorMessage = "Passwords must match";
+      errorMessage = "Las contraseñas deben coincidir";
     }
 
     if (!isProceed) {
@@ -73,23 +73,23 @@ const Register = () => {
         body: JSON.stringify(regObj),
       })
         .then((res) => {
-          toast.success("Registration Successful");
+          toast.success("Registro exitoso");
           navigate("/login");
         })
         .catch((err) => {
-          toast.error("Failed: " + err.message);
+          toast.error("Falló: " + err.message);
         });
     }
   };
   return (
     <>
-      <SectionTitle title="Register" path="Home | Register" />
+      <SectionTitle title="Registro" path="Inicio | Registro" />
       <div className="flex flex-col justify-center sm:py-12">
         <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
           <div className="bg-dark border border-gray-600 shadow w-full rounded-lg divide-y divide-gray-200">
             <form className="px-5 py-7" onSubmit={handleSubmit}>
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                Name
+                Nombre
               </label>
               <input
                 type="text"
@@ -99,7 +99,7 @@ const Register = () => {
                 required={true}
               />
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                Lastname
+                Apellido
               </label>
               <input
                 type="text"
@@ -109,7 +109,7 @@ const Register = () => {
                 required={true}
               />
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                E-mail
+                Correo Electrónico
               </label>
               <input
                 type="email"
@@ -119,7 +119,7 @@ const Register = () => {
                 required={true}
               />
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                Phone
+                Teléfono
               </label>
               <input
                 type="tel"
@@ -129,7 +129,7 @@ const Register = () => {
                 required={true}
               />
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                Adress
+                Dirección
               </label>
               <input
                 type="text"
@@ -139,7 +139,7 @@ const Register = () => {
                 required={true}
               />
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                Password
+                Contraseña
               </label>
               <input
                 type="password"
@@ -149,7 +149,7 @@ const Register = () => {
                 required={true}
               />
               <label className="font-semibold text-sm pb-1 block text-accent-content">
-                Repeat Password
+                Repetir Contraseña
               </label>
               <input
                 type="password"
@@ -162,7 +162,7 @@ const Register = () => {
                 type="submit"
                 className="transition duration-200 bg-blue-600 hover:bg-blue-500 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
               >
-                <span className="inline-block mr-2">Register</span>
+                <span className="inline-block mr-2">Registrarse</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -186,7 +186,7 @@ const Register = () => {
               className="btn btn-neutral text-white"
               onClick={() => window.scrollTo(0, 0)}
             >
-              Already have an account? Please login.
+              ¿Ya tienes una cuenta? Por favor, inicia sesión.
             </Link>
           </div>
         </div>

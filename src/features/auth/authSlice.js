@@ -20,14 +20,6 @@ const authSlice = createSlice({
       state.userId = false;
       toast.success("You have successfuly logout");
     },
-    changeMode: (state) => {
-      state.darkMode = !state.darkMode;
-      if(state.darkMode){
-        document.querySelector('html').setAttribute('data-theme', "dark");
-      }else{
-        document.querySelector('html').setAttribute('data-theme', "winter");
-      }
-    }
   },
 });
 
