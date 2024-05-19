@@ -15,7 +15,7 @@ const Header = () => {
   const { amount } = useSelector((state) => state.cart);
   const { total } = useSelector((state) => state.cart);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const dispatch = useDispatch();
   const loginState = useSelector((state) => state.auth.isLoggedIn);
 
 
@@ -25,12 +25,12 @@ const Header = () => {
         const getResponse = await axios.get(`http://localhost:8080/user/${localStorage.getItem("id")}`);
         const userObj = getResponse.data;
   
-        store.dispatch(updateWishlist({userObj}));
+        dispatch(updateWishlist({userObj}));
       } catch (error) {
         console.error(error);
       }
     }else{
-      store.dispatch(clearWishlist());
+      dispatch(clearWishlist());
     }
   };
 
@@ -99,7 +99,7 @@ const Header = () => {
             </label>
             <div
               tabIndex={0}
-              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-green-700 bg-opacity-20 shadow"
+              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-green-700 bg-opacity-50 shadow"
             >
               <div className="card-body">
                 <span className="font-bold text-lg text-accent-content">

@@ -1,20 +1,19 @@
 import React from "react";
 import "../styles/Landing.css";
 import { Hero, ProductElement } from "../components";
-import { useLoaderData } from "react-router-dom";
-import axios from "axios";
-
-export const landingLoader = async () => {
-  const response = await axios(
-    `http://localhost:8080/products?_page=1&_limit=8`
-  );
-  const data = response.data;
-
-  return { products: data };
-};
-
+import { useEffect, useState } from "react";
+import { getProducts } from "../api";
+import { useSelector, useDispatch } from "react-redux";
+import { setProducts } from "../features/product/productSlice";
 const Landing = () => {
-  const { products } = useLoaderData();
+  const productsState = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getProducts().then((products) => {
+      dispatch(setProducts(products)); 
+    });
+  }, [dispatch]);
 
   return (
     <main>
@@ -23,18 +22,19 @@ const Landing = () => {
         <h2 className="text-6xl text-center my-12 max-md:text-4xl text-accent-content">
           Productos seleccionados
         </h2>
+        { productsState.isLoading && productsState.products ? <p>Cargando productos...</p> :        
         <div className="selected-products-grid max-w-7xl mx-auto">
-          {products.map((product) => (
+          {productsState.products.map((product) => (
             <ProductElement
-              key={product.id}
+              key={product._id}
               id={product.id}
               title={product.name}
               image={product.imageUrl}
               rating={product.rating}
-              price={product.price.current.value}
+              price={product.price}
             />
           ))}
-        </div>
+        </div> }
       </div>
     </main>
   );

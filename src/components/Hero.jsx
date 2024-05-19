@@ -10,7 +10,7 @@ const Hero = () => {
           Encuentra las flores más frescas y hermosas para cualquier ocasión.
           Realiza tus pedidos online y recíbelos en la puerta de tu casa.
         </p>
-        <Link to="/shop" className="btn btn-wide bg-green-600 hover:bg-green-800 text-white">Shop Now</Link>
+        <Link to="/shop" className="btn btn-wide bg-green-600 hover:bg-green-800 text-white">Compra ahora</Link>
       </div>
     </div>
   </div>
