@@ -10,6 +10,7 @@ const Profile = () => {
   const [userData, setUserData] = useState({});
   const loginState = useSelector((state) => state.auth.isLoggedIn);
   const wishItems = useSelector((state) => state.wishlist.wishItems);
+  const [loading, setLoading] = useState(true);
   const [userFormData, setUserFormData] = useState({
     id: "",
     name: "",
@@ -23,14 +24,14 @@ const Profile = () => {
 
   const getUserData = async () => {
     try {
-      const response = await axios(`http://localhost:8080/user/${id}`);
-      const data = response.data;
+      const response = await fetch("/api/user/token");
+      const data = await response.json();
       setUserFormData({
         name: data.name,
         lastname: data.lastname,
         email: data.email,
         phone: data.phone,
-        adress: data.adress,
+        adress: data.address,
         password: data.password,
       });
     } catch (error) {
@@ -40,7 +41,9 @@ const Profile = () => {
 
   useEffect(() => {
     if (loginState) {
+      setLoading(true);
       getUserData();
+      setLoading(false);
     } else {
       toast.error("You must be logged in to access this page");
       navigate("/");
@@ -75,6 +78,7 @@ const Profile = () => {
   return (
     <>
       <SectionTitle title="User Profile" path="Home | User Profile" />
+      { loading ? <div className="text-center">Loading...</div> : 
       <form className="max-w-7xl mx-auto text-center px-10" onSubmit={updateProfile}>
         <div className="grid grid-cols-3 max-lg:grid-cols-1">
           <div className="form-control w-full lg:max-w-xs">
@@ -161,7 +165,7 @@ const Profile = () => {
         >
           Update Profile
         </button>
-      </form>
+      </form> }
     </>
   );
 };

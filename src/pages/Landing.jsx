@@ -27,7 +27,7 @@ const Landing = () => {
           {productsState.products.map((product) => (
             <ProductElement
               key={product._id}
-              id={product.id}
+              id={product._id}
               title={product.name}
               image={product.imageUrl}
               rating={product.rating}

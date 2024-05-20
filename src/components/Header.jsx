@@ -3,26 +3,26 @@ import { Link, NavLink } from "react-router-dom";
 import { HiMiniBars3BottomLeft } from "react-icons/hi2";
 import { FaHeart } from "react-icons/fa6";
 import { FaWindowClose } from "react-icons/fa";
-
 import logo from "../assets/bambu-logo.png";
 import "../styles/Header.css";
 import { useDispatch, useSelector } from "react-redux";
-import { store } from "../store";
 import axios from "axios";
 import { clearWishlist, updateWishlist } from "../features/wishlist/wishlistSlice";
-
+import { isLoggedIn, logout } from "../api";
+import { loginUser, logoutUser } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const { amount } = useSelector((state) => state.cart);
-  const { total } = useSelector((state) => state.cart);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { total } = useSelector((state) => state.cart); 
+  const [logged, setLogged] = useState(false);
   const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.auth.isLoggedIn);
-
+  const loginState = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const fetchWishlist = async () => {
     if(loginState){
       try {
-        const getResponse = await axios.get(`http://localhost:8080/user/${localStorage.getItem("id")}`);
+        const getResponse = await fetch("api/user/")
         const userObj = getResponse.data;
   
         dispatch(updateWishlist({userObj}));
@@ -33,12 +33,31 @@ const Header = () => {
       dispatch(clearWishlist());
     }
   };
-
+  
+  const handleLogout = async () => {
+    logout().then((response) => {  
+      if(response){
+        dispatch(logoutUser());
+        setLogged(false);
+        navigate("/login")
+      }
+    });
+  }
 
   useEffect(() => {
-    setIsLoggedIn(loginState);
-    fetchWishlist();
-  }, [loginState]);
+    isLoggedIn()
+    .then((response) => {
+        if(response){
+          setLogged(true)
+          dispatch(loginUser())
+        }
+        else{
+          setLogged(false)
+          dispatch(logoutUser())
+        }
+      })
+    //fetchWishlist();
+  }, [loginState, logged]);
 
   return (
     <>
@@ -106,7 +125,7 @@ const Header = () => {
                   {amount} Items
                 </span>
                 <span className="text-info text-accent-content">
-                  Subtotal: ${total.toFixed(2)}
+                  Subtotal: {total.toFixed(2)} €
                 </span>
                 <div className="card-actions">
                   <Link
@@ -119,7 +138,7 @@ const Header = () => {
               </div>
             </div>
           </div>
-          {isLoggedIn && (
+          {logged && (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
@@ -128,7 +147,7 @@ const Header = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-green-700 bg-opacity-20 rounded-box w-52"
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-green-700 bg-opacity-70 rounded-box w-52"
               >
                 <li>
                   <Link
@@ -144,7 +163,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/login" className="text-accent-content">
+                  <Link onClick={handleLogout} className="text-accent-content">
                     Cerrar Sesión
                   </Link>
                 </li>
@@ -193,7 +212,7 @@ const Header = () => {
                   Contacto
                 </NavLink>
               </li>
-              {!isLoggedIn && (
+              {!logged && (
                 <>
                   <li className="text-xl">
                     <NavLink className="text-accent-content" to="/login">
@@ -224,7 +243,7 @@ const Header = () => {
           <NavLink className="text-accent-content" to="/contact">
             Contacto
           </NavLink>
-          {!isLoggedIn && (
+          {!logged && (
             <>
               <NavLink className="text-accent-content" to="/login">
                 Login

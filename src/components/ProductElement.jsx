@@ -2,9 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ProductElement = ({ id, title, image, rating, price, brandName }) => {
-  const product = {
-    id, title, image, rating, price, brandName, amount: 1
-  };
   return (
     <div className="max-w-2xl">
       <div className="shadow-md rounded-lg max-w-sm bg-base-100">
