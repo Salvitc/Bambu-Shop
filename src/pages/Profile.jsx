@@ -4,10 +4,10 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { updateUser } from "../api";
 
 const Profile = () => {
   const [id, setId] = useState(localStorage.getItem("id"));
-  const [userData, setUserData] = useState({});
   const loginState = useSelector((state) => state.auth.isLoggedIn);
   const wishItems = useSelector((state) => state.wishlist.wishItems);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const Profile = () => {
     lastname: "",
     email: "",
     phone: "",
-    adress: "",
+    address: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Profile = () => {
         lastname: data.lastname,
         email: data.email,
         phone: data.phone,
-        adress: data.address,
+        address: data.address,
         password: data.password,
       });
     } catch (error) {
@@ -45,34 +45,21 @@ const Profile = () => {
       getUserData();
       setLoading(false);
     } else {
-      toast.error("You must be logged in to access this page");
+      toast.error("Debes iniciar sesión para acceder a esta página");
       navigate("/");
     }
   }, []);
 
   const updateProfile = async (e) => {
+    setLoading(true);
     e.preventDefault();
-    try{
-
-      const getResponse = await axios(`http://localhost:8080/user/${id}`);
-      const userObj = getResponse.data;
-
-      // saljemo get(default) request
-      const putResponse = await axios.put(`http://localhost:8080/user/${id}`, {
-        id: id,
-        name: userFormData.name,
-        lastname: userFormData.lastname,
-        email: userFormData.email,
-        phone: userFormData.phone,
-        adress: userFormData.adress,
-        password: userFormData.password,
-        userWishlist: await userObj.userWishlist
-        //userWishlist treba da stoji ovde kako bi sacuvao stanje liste zelja
-      });
-      const putData = putResponse.data;
-    }catch(error){
-      console.log(error.response);
+    const response = await updateUser(userFormData);
+    
+    if (response.ok) {
+      toast.success("Perfil actualizado correctamente");
     }
+
+    setLoading(false);
   }
 
   return (
@@ -135,14 +122,14 @@ const Profile = () => {
 
           <div className="form-control w-full lg:max-w-xs">
             <label className="label">
-              <span className="label-text">Your Adress</span>
+              <span className="label-text">Your address</span>
             </label>
             <input
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full lg:max-w-xs"
-              value={userFormData.adress}
-              onChange={(e) => {setUserFormData({...userFormData, adress: e.target.value})}}
+              value={userFormData.address}
+              onChange={(e) => {setUserFormData({...userFormData, address: e.target.value})}}
             />
           </div>
 

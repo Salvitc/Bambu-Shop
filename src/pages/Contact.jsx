@@ -101,7 +101,7 @@ const Contact = () => {
               <div className="flex h-6 items-center">
                 <button
                   type="button"
-                  className="bg-blue-600 flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="bg-green-700 flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   role="switch"
                   aria-checked="false"
                   aria-labelledby="switch-1-label"
@@ -116,7 +116,7 @@ const Contact = () => {
               </div>
               <label className="text-sm leading-6 text-accent-content" id="switch-1-label">
                     Al seleccionar esto, aceptas nuestra 
-                <a href="#" className="font-semibold text-blue-500">
+                <a href="#" className="font-semibold text-green-600">
                 &nbsp;política de&nbsp;privacidad
                 </a>
                 .
@@ -126,7 +126,7 @@ const Contact = () => {
           <div className="mt-10">
             <button
               type="submit"
-              className="block w-full rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="block w-full rounded-md bg-green-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Hablemos
             </button>

@@ -2,35 +2,19 @@ import React, { useEffect } from "react";
 import { SectionTitle } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { store } from "../store";
-import { calculateTotals, clearCart } from "../features/cart/cartSlice";
 
 const ThankYou = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const loginState = useSelector((state) => state.auth.isLoggedIn);
-  const { total } = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const saveToOrderHistory = async () => {
-    try {
-      const response = await axios.post("http://localhost:8080/orders", {
-        userId: localStorage.getItem("id"),
-        orderStatus: "in progress",
-        subtotal: total,
-        cartItems: cartItems,
-      });
-    } catch (err) {
-      toast.error(err.response);
-    }
   };
 
   if (cartItems.length > 0) {
     saveToOrderHistory();
-    store.dispatch(clearCart());
-    store.dispatch(calculateTotals());
     toast.success("Order completed");
   }
 
@@ -40,7 +24,6 @@ const ThankYou = () => {
       navigate("/");
     }
   }, []);
-
 
   return (
     <>

@@ -6,31 +6,23 @@ import { FaWindowClose } from "react-icons/fa";
 import logo from "../assets/bambu-logo.png";
 import "../styles/Header.css";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { clearWishlist, updateWishlist } from "../features/wishlist/wishlistSlice";
-import { isLoggedIn, logout } from "../api";
+import { updateWishlist } from "../features/wishlist/wishlistSlice";
+import { updateCart } from "../features/cart/cartSlice";
+import { getUserData, isLoggedIn, logout } from "../api";
 import { loginUser, logoutUser } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+
 const Header = () => {
-  const { amount } = useSelector((state) => state.cart);
-  const { total } = useSelector((state) => state.cart); 
   const [logged, setLogged] = useState(false);
+  const { amount, total } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  const fetchWishlist = async () => {
-    if(loginState){
-      try {
-        const getResponse = await fetch("api/user/")
-        const userObj = getResponse.data;
-  
-        dispatch(updateWishlist({userObj}));
-      } catch (error) {
-        console.error(error);
-      }
-    }else{
-      dispatch(clearWishlist());
+  const fetchCartWish = async () => {
+    const user = await getUserData()
+    if(user){
+      dispatch(updateWishlist(user.wishlist));
+      dispatch(updateCart(user.cart));
     }
   };
   
@@ -39,25 +31,25 @@ const Header = () => {
       if(response){
         dispatch(logoutUser());
         setLogged(false);
-        navigate("/login")
+        navigate("/login");
       }
     });
   }
 
-  useEffect(() => {
+  useEffect(() =>{
     isLoggedIn()
     .then((response) => {
         if(response){
+          dispatch(loginUser());
           setLogged(true)
-          dispatch(loginUser())
         }
         else{
+          dispatch(logoutUser());
           setLogged(false)
-          dispatch(logoutUser())
         }
       })
-    //fetchWishlist();
-  }, [loginState, logged]);
+    fetchCartWish();
+  });
 
   return (
     <>
@@ -72,25 +64,6 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex-none">
-          <Link
-            to="/search"
-            className="btn btn-ghost btn-circle text-accent-content"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </Link>
           <Link
             to="/wishlist"
             className="btn btn-ghost btn-circle text-accent-content"
@@ -118,19 +91,19 @@ const Header = () => {
             </label>
             <div
               tabIndex={0}
-              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-green-700 bg-opacity-50 shadow"
+              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-green-700 bg-opacity-70 shadow"
             >
               <div className="card-body">
-                <span className="font-bold text-lg text-accent-content">
+                <span className="font-bold text-gray-200 text-lg  text-accent-content">
                   {amount} Items
                 </span>
-                <span className="text-info text-accent-content">
+                <span className="text-info text-white text-accent-content">
                   Subtotal: {total.toFixed(2)} €
                 </span>
                 <div className="card-actions">
                   <Link
                     to="/cart"
-                    className="btn bg-blue-600 btn-block text-white hover:bg-blue-500 text-base-content"
+                    className="btn bg-green-700 btn-block text-white hover:bg-green-900 text-base-content"
                   >
                     Ver Carrito
                   </Link>

@@ -4,7 +4,7 @@ import { FaMinus } from "react-icons/fa6";
 
 const QuantityInput = ({ quantity, setQuantity }) => {
   return (
-    <>
+    <div className="flex flex-row mb-3">
       <button
         type="button"
         className="h-10 w-10 border-gray-600 flex justify-center items-center border leading-10 text-gray-600 transition hover:opacity-75"
@@ -32,7 +32,7 @@ const QuantityInput = ({ quantity, setQuantity }) => {
       >
         <FaPlus className="text-2xl" />
       </button>
-    </>
+    </div>
   );
 };
 

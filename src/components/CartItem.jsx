@@ -1,10 +1,7 @@
 import { useDispatch } from "react-redux";
-import { removeItem, updateCartAmount } from "../features/cart/cartSlice";
-
 
 const CartItem = ({ cartItem }) => {
-  const { id, title, price, image, amount, brandName, selectedSize } =
-    cartItem;
+  const { id, title, price, image, amount, category } = cartItem;
 
     const dispatch = useDispatch();
 
@@ -21,34 +18,31 @@ const CartItem = ({ cartItem }) => {
       <div className="sm:ml-16 sm:w-48">
         <h3 className="capitalize font-medium text-accent-content">{title}</h3>
         <h4 className="mt-2 capitalize text-sm text-accent-content">
-          Brand: { brandName }
-        </h4>
-        <h4 className="mt-2 capitalize text-sm text-accent-content">
-          Size: { selectedSize }
+          Categoría: { category }
         </h4>
       </div>
       <div className="sm:ml-12">
         <div className="form-control max-w-xs">
           <label htmlFor="amount" className="label p-0">
-            <span className="label-text text-accent-content">Amount</span>
+            <span className="label-text text-accent-content">Cantidad</span>
           </label>
           <input
             name="number"
             id="amount"
             className="mt-2 input input-bordered input-sm w-full max-w-xs text-accent-content"
             value={amount}
-           onChange={(event) => dispatch(updateCartAmount({id: id, amount: event.target.value}))}
+           onChange={() => {}}
             />
         </div>
         <button
           className="mt-2 link link-warning link-hover text-sm text-accent-content"
-          onClick={()=> dispatch(removeItem(id))}
+          onClick={()=> {}}
         >
-          remove
+          Eliminar
         </button>
       </div>
 
-      <p className="font-medium sm:ml-auto text-accent-content">${ (price * amount).toFixed(2) }</p>
+      <p className="font-medium sm:ml-auto text-accent-content">{ (price * amount).toFixed(2) } €</p>
     </article>
   );
 };

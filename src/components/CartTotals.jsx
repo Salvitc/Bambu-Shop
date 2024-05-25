@@ -2,7 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 
 const CartTotals = () => {
-  const { amount } = useSelector((state) => state.cart);
   const { total } = useSelector((state) => state.cart);
   const tax = total * 0.21;
   const shipping = 5.99;

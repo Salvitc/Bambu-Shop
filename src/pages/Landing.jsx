@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../api";
 import { useSelector, useDispatch } from "react-redux";
 import { setProducts } from "../features/product/productSlice";
+
 const Landing = () => {
   const productsState = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
   useEffect(() => {
     getProducts().then((products) => {
-      dispatch(setProducts(products)); 
+      dispatch(setProducts(products));
     });
   }, [dispatch]);
 

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../features/product/productSlice";
 import {
   Filters,
-  Pagination,
   ProductElement,
   SectionTitle,
 } from "../components";

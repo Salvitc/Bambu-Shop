@@ -36,18 +36,18 @@ const OrderHistory = () => {
 
   return (
     <>
-      <SectionTitle title="Order History" path="Home | Order History" />
+      <SectionTitle title="Historial de pedidos" path="Perfil | Historial de pedidos" />
       <div className="order-history-main max-w-7xl mx-auto mt-10 px-20 max-md:px-10">
         {orders?.length === 0 ? (
           <div className="text-center">
             <h1 className="text-4xl text-accent-content">
-              There are no orders in the order history
+              No tienes pedidos aún
             </h1>
             <Link
               to="/shop"
-              className="btn bg-blue-600 hover:bg-blue-500 text-white mt-10"
+              className="btn bg-green-700 hover:bg-green-900 text-white mt-10"
             >
-              Make your first order
+              Ir a la tienda
             </Link>
           </div>
         ) : (

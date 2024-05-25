@@ -20,7 +20,7 @@ const Cart = () => {
 
   return (
     <>
-    <SectionTitle title="Carrito" path="Home | Carrito" />
+    <SectionTitle title="Carrito" path="Inicio | Carrito" />
     <div className='mt-8 grid gap-8 lg:grid-cols-12 max-w-7xl mx-auto px-10'>
         <div className='lg:col-span-8'>
           <CartItemsList />
@@ -28,11 +28,11 @@ const Cart = () => {
         <div className='lg:col-span-4 lg:pl-4'>
           <CartTotals />
           {loginState ? (
-            <button onClick={isCartEmpty} className='btn bg-blue-600 hover:bg-blue-500 text-white btn-block mt-8'>
+            <button onClick={isCartEmpty} className='btn bg-green-700 hover:bg-green-900 text-white btn-block mt-8'>
               Procede al pago
             </button>
           ) : (
-            <Link to='/login' className='btn bg-blue-600 hover:bg-blue-500 btn-block text-white mt-8'>
+            <Link to='/login' className='btn bg-green-700 hover:bg-green-900 btn-block text-white mt-8'>
               Por favor, inicia sesión
             </Link>
           )}

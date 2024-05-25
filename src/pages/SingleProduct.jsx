@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getProduct } from "../api";
-import { SectionTitle, SingleProductReviews } from "../components";
+import { getProduct, putCart, putWishlist } from "../api";
+import { QuantityInput, SectionTitle, SingleProductReviews } from "../components";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -14,12 +17,44 @@ const SingleProduct = () => {
     "empty star",
     "empty star",
   ]);
+  const [inWhishlist, setInWhishlist] = useState(true);
+  const { wishItems } = useSelector((state) => state.wishlist); 
 
   useEffect(() => {
     getProduct(id).then((product) => {
       setProduct(product);
     });
-  }, [id]);
+    if (wishItems.includes(id)) {
+      setInWhishlist(true);
+    } else {
+      setInWhishlist(false);
+    }
+  }, []);
+
+  const handleWishlist = () => {
+    if (inWhishlist) {
+      toast.error("El producto ya está en la lista de deseos");
+    } else {
+      putWishlist(product._id).then((res) => {
+        if(res.ok){
+          toast.success("Producto añadido a la lista de deseos")
+          setInWhishlist(!inWhishlist);
+        } else {
+          toast.error("Error al añadir el producto a la lista de deseos")
+        }
+      });
+    }
+  }
+
+  const handleCart = () => {
+     putCart(product._id, product.price, quantity).then((res) => {
+       if(res.ok){
+         toast.success("Producto añadido al carrito")
+       } else {
+         toast.error("Error al añadir el producto al carrito")
+       }
+     });
+  }
 
   return (
     <>
@@ -44,7 +79,15 @@ const SingleProduct = () => {
               <span className="text-3xl font-bold text-accent-content">
                 {product.price} €
               </span>
-              <button className="btn btn-accent">Añadir al carrito</button>
+              <div className="flex items-center gap-4">
+              <button className="btn bg-red-400 hover:bg-red-200" onClick={handleWishlist}>
+                  { inWhishlist ? <FaHeart /> : <FaRegHeart />}
+              </button>
+              <div className="flex flex-col">
+              <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
+              <button className="btn btn-accent" onClick={handleCart}>Añadir al carrito</button>
+              </div>
+              </div>
             </div>
           </div>
         </div>

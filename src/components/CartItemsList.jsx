@@ -3,8 +3,7 @@ import CartItem from './CartItem';
 import { useSelector } from 'react-redux';
 
 const CartItemsList = () => {
-    
-    const { cartItems } = useSelector(state => state.cart);
+  const { cartItems } = useSelector(state => state.cart);
 
   return (
     <>
