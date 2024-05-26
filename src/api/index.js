@@ -1,14 +1,16 @@
+import { withOptions } from "tailwindcss/plugin";
+
 export const getProducts = async () => {
   const response = await fetch('/api/product');
   return await response.json();
 }
-
+ 
 export const getProduct = async (id) => {
   const response = await fetch(`/api/product/${id}`);
   return await response.json();
 }
 
-export const isLoggedIn = async () => {
+export const getLoggedIn = async () => {
   const response = await fetch('/api/user/role');
   
   if (response.ok) {
@@ -76,7 +78,6 @@ export const putWishlist = async(idProduct) => {
   } else {
     json = [idProduct];
   }
-  console.log(json);
   const response = await fetch(`/api/user/${data._id}/wishlist`, {
     method: "PUT",
     headers: { "content-type": "application/json" },
@@ -106,13 +107,12 @@ export const putCart = async(product_id, price, amount) => {
       }
     })
     if(!exists){
-      json.push(cartItem);
+      json.push(cartItem)
     }
   } else {
     json = [cartItem];
   }
 
-  console.log(json);
   const response = await fetch(`/api/user/${data._id}/cart`, {
     method: "PUT",
     headers: { "content-type": "application/json" },
@@ -135,5 +135,50 @@ export const deleteFromWishlist = async(idProduct) => {
   return response;
 }
 
+export const deleteCartItem = async(product_id) => {
+  const user = await fetch("/api/user/token");
+  const data = await user.json();
+  
+  let json = data.cart;
+  if(json){
+    json = json.filter((item) => item.product_id !== product_id);
+  }
+  
+  const response = await fetch(`/api/user/${data._id}/cart`, {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(json),
+  })
+
+  return response;
+}
+
+export const currentCartToOrder = async () => {
+  const response = await fetch("/api/order/dump", {
+    method: "PUT",
+  });
+
+  return response;
+}
 
 
+export const clearCart = async () => {
+  const user = await fetch("/api/user/token");
+  const data = await user.json();
+  
+  const response = await fetch(`/api/user/${data._id}/cart`, {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify([]),
+  })
+
+  return response;
+}
+
+export const getOrders = async () => {
+  const user = await fetch("/api/user/token");
+  const data = await user.json();
+  
+  const response = await fetch(`/api/order/${data._id}`);
+  return await response.json();
+}

@@ -29,16 +29,17 @@ const Shop = () => {
           reset={reset}
         />
         <div className="grid grid-cols-4 px-2 gap-y-4 gap-x-2 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 shop-products-grid">
-          {productsState.products.map((product) => (
-            <ProductElement
+          {productsState.products.map((product) => {
+            const image = product.images ? product.images[0] : "https://via.placeholder.com/350";
+            return (<ProductElement
               key={product._id}
               id={product._id}
               title={product.name}
-              image={product.imageUrl}
+              image={image}
               rating={product.rating}
               price={product.price}
-            />
-          ))}
+            />)
+          })}
         </div>
       </div>
     </>

@@ -23,18 +23,21 @@ const Landing = () => {
         <h2 className="text-6xl text-center my-12 max-md:text-4xl text-accent-content">
           Productos seleccionados
         </h2>
-        { productsState.isLoading && productsState.products ? <p>Cargando productos...</p> :        
+        { !productsState ? <p>Cargando productos...</p> :        
         <div className="selected-products-grid max-w-7xl mx-auto">
-          {productsState.products.map((product) => (
-            <ProductElement
-              key={product._id}
-              id={product._id}
-              title={product.name}
-              image={product.imageUrl}
-              rating={product.rating}
-              price={product.price}
-            />
-          ))}
+          {productsState.products.map((product) => {
+            const image = product.images ? product.images[0] : "https://via.placeholder.com/350";
+            return (
+              <ProductElement
+                key={product._id}
+                id={product._id}
+                title={product.name}
+                image={image}
+                rating={product.rating}
+                price={product.price}
+              />
+            )
+          })}
         </div> }
       </div>
     </main>

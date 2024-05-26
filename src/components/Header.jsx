@@ -8,12 +8,12 @@ import "../styles/Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateWishlist } from "../features/wishlist/wishlistSlice";
 import { updateCart } from "../features/cart/cartSlice";
-import { getUserData, isLoggedIn, logout } from "../api";
+import { getUserData, getLoggedIn, logout } from "../api";
 import { loginUser, logoutUser } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const [logged, setLogged] = useState(false);
+  const logged = useSelector((state) => state.auth.isLoggedIn);
   const { amount, total } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,26 +30,30 @@ const Header = () => {
     logout().then((response) => {  
       if(response){
         dispatch(logoutUser());
-        setLogged(false);
         navigate("/login");
       }
     });
   }
 
   useEffect(() =>{
-    isLoggedIn()
+    getLoggedIn()
     .then((response) => {
         if(response){
-          dispatch(loginUser());
-          setLogged(true)
+          if(!logged){
+            dispatch(loginUser());
+          }
         }
         else{
-          dispatch(logoutUser());
-          setLogged(false)
+          if(logged) {
+            dispatch(logoutUser());
+          }
         }
       })
+  }, []);
+
+  useEffect(() => {
     fetchCartWish();
-  });
+  }, [amount, total]);
 
   return (
     <>

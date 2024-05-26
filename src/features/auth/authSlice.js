@@ -23,7 +23,6 @@ const authSlice = createSlice({
   },
 });
 
-// console.log(cartSlice);
 export const { loginUser, logoutUser, changeMode } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -3,26 +3,20 @@ import { SectionTitle } from "../components";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { nanoid } from "nanoid";
+import { getOrders } from "../api";
 
 const OrderHistory = () => {
   // cancelled, in progress, delivered
   const loginState = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const getOrderHistory = async () => {
-    try {
-      // saljemo get(default) request
-      const response = await axios.get("http://localhost:8080/orders");
-      const data = response.data;
-      setOrders(
-        data.filter((order) => order.userId === localStorage.getItem("id"))
-      );
-    } catch (error) {
-      toast.error(error.response);
-    }
+    setLoading(true);
+    setOrders(await getOrders());
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -37,8 +31,9 @@ const OrderHistory = () => {
   return (
     <>
       <SectionTitle title="Historial de pedidos" path="Perfil | Historial de pedidos" />
+      {loading ? <p> Cargando pedidos... </p> :
       <div className="order-history-main max-w-7xl mx-auto mt-10 px-20 max-md:px-10">
-        {orders?.length === 0 ? (
+        {!orders ? (
           <div className="text-center">
             <h1 className="text-4xl text-accent-content">
               No tienes pedidos aún
@@ -59,7 +54,7 @@ const OrderHistory = () => {
               >
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium text-accent-content">
-                  Order {order.id} - {order.orderStatus}
+                  Order {order.order_id}
                 </div>
                 <div className="collapse-content">
                   <div className="overflow-x-auto">
@@ -70,47 +65,34 @@ const OrderHistory = () => {
                           <th>Order</th>
                           <th>Image</th>
                           <th>Name</th>
-                          <th>Size</th>
                           <th>Amount</th>
                           <th>Price</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {order.cartItems.map((product, counter) => (
+                        {order.products.map((product, counter) => (
                           <tr className="text-accent-content" key={nanoid()}>
                             <th>{counter + 1}</th>
-                            <th><img src={`https://${product.image}`} alt="" className="w-10" /></th>
-                            <td>{product.title}</td>
-                            <td>{product.selectedSize}</td>
+                            { !product.images ? 
+                              <th><img src="https://via.placeholder.com/150" alt="" className="w-10" /></th> :
+                              <th><img src={`${product.images[0]}`} alt="" className="w-10" /></th>
+                            }
+                            <td>{product.name}</td>
                             <td>{product.amount}</td>
-                            <td>${(product.price * product.amount).toFixed(2)}</td>
+                            <td>{(product.price * product.amount)} €</td>
                           </tr>
                         ))}
                         <tr>
                           <td colSpan="5" className="text-center">
-                            <h4 className="text-md text-accent-content">
-                              Subtotal: ${ Math.round(order?.subtotal) }
-                            </h4>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colSpan="5" className="text-center">
                             <h3 className="text-md text-accent-content">
-                              Shipping: $50
-                            </h3>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colSpan="5" className="text-center">
-                            <h3 className="text-md text-accent-content">
-                              Tax: 20%: ${ Math.round(order?.subtotal / 5) }
+                              Envío: 5.99 €
                             </h3>
                           </td>
                         </tr>
                         <tr>
                           <td colSpan="5" className="text-center">
                             <h3 className="text-xl text-accent-content">
-                              - Order Total: ${ Math.round(order?.subtotal + 50 + (order?.subtotal / 5)) } -
+                              - Total pedido: { order.amount } -
                             </h3>
                           </td>
                         </tr>
@@ -122,7 +104,7 @@ const OrderHistory = () => {
             );
           })
         )}
-      </div>
+      </div>}
     </>
   );
 };

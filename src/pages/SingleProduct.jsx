@@ -5,7 +5,8 @@ import { QuantityInput, SectionTitle, SingleProductReviews } from "../components
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
+import { updateCart } from "../features/cart/cartSlice";
 const SingleProduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
@@ -17,18 +18,20 @@ const SingleProduct = () => {
     "empty star",
     "empty star",
   ]);
-  const [inWhishlist, setInWhishlist] = useState(true);
-  const { wishItems } = useSelector((state) => state.wishlist); 
+  const [inWhishlist, setInWhishlist] = useState(false);
+  const { wishItems } = useSelector((state) => state.wishlist);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getProduct(id).then((product) => {
       setProduct(product);
+      console.log(product);
     });
-    if (wishItems.includes(id)) {
-      setInWhishlist(true);
-    } else {
-      setInWhishlist(false);
-    }
+      if (wishItems.includes(id)) {
+        setInWhishlist(true);
+      } else {
+        setInWhishlist(false);
+      }
   }, []);
 
   const handleWishlist = () => {
@@ -47,8 +50,10 @@ const SingleProduct = () => {
   }
 
   const handleCart = () => {
-     putCart(product._id, product.price, quantity).then((res) => {
+     putCart(product._id, product.price, quantity).then(async (res) => {
        if(res.ok){
+         const cart = await res.json();
+          dispatch(updateCart(cart));
          toast.success("Producto añadido al carrito")
        } else {
          toast.error("Error al añadir el producto al carrito")
@@ -58,15 +63,23 @@ const SingleProduct = () => {
 
   return (
     <>
+      {!product ? <p>Cargando...</p> : <div>
       <SectionTitle title="Producto" path="Inicio | Tienda | Producto" />
       <div className="max-w-7xl mx-auto px-10">
         <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 p-4">
+            { product.images ?
             <img
               className="rounded-lg"
-              src={`https://${product.imageUrl}`}
+              src={`${product.images[0]}`}
+              alt="product"
+            /> : 
+            <img
+              className="rounded-lg"
+              src="https://via.placeholder.com/350"
               alt="product"
             />
+            }
           </div>
           <div className="w-full md:w-1/2 px-5 py-10">
             <h2 className="text-4xl font-semibold text-accent-content">
@@ -92,6 +105,7 @@ const SingleProduct = () => {
           </div>
         </div>
       </div>
+      </div>}
     </>
   );
 }

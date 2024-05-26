@@ -14,7 +14,7 @@ const Cart = () => {
     if(cartItems.length === 0){
       toast.error("Tu carrito está vacío");
     }else{
-      navigate("/thank-you");
+      navigate("/checkout");
     }
   }
 

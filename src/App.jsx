@@ -12,7 +12,8 @@ import {
  Wishlist,
   Profile,
   ThankYou,
-  OrderHistory
+  OrderHistory,
+  Checkout
 } from "./pages";
 import { ToastContainer } from "react-toastify";
 
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path:"order-history",
         element: <OrderHistory />
+      },
+      {
+        path:"checkout",
+        element: <Checkout />
       }
     ],
   },

@@ -13,7 +13,6 @@ const WishItem = ({ item, counter }) => {
     const removeFromWishlistHandler = async (product) => {
       const { wishlist } = store.getState();
       const updatedWishlist = wishlist.wishItems.filter((item) => item !== product._id);
-      console.log(updatedWishlist);
       const response = await deleteFromWishlist(updatedWishlist);
       if(response.ok){
         dispatch(updateWishlist(updatedWishlist))

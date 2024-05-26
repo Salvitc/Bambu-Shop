@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  wishItems: [],
+  wishItems: new Array(),
   isLoading: true,
 };
 
@@ -10,7 +10,7 @@ const wishlistSlice = createSlice({
   initialState,
   reducers: {
     clearWishlist: (state) => {
-      state.wishItems = [];
+      state.wishItems = new Array();
     },
     updateWishlist: (state, action) => {
       state.wishItems = action.payload;
