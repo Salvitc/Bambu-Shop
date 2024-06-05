@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { updateCart } from "../features/cart/cartSlice";
+import { updateWishlist } from "../features/wishlist/wishlistSlice";
+
 const SingleProduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
@@ -25,7 +27,6 @@ const SingleProduct = () => {
   useEffect(() => {
     getProduct(id).then((product) => {
       setProduct(product);
-      console.log(product);
     });
       if (wishItems.includes(id)) {
         setInWhishlist(true);
@@ -34,18 +35,18 @@ const SingleProduct = () => {
       }
   }, []);
 
-  const handleWishlist = () => {
+  const handleWishlist = async () => {
     if (inWhishlist) {
       toast.error("El producto ya está en la lista de deseos");
     } else {
-      putWishlist(product._id).then((res) => {
-        if(res.ok){
-          toast.success("Producto añadido a la lista de deseos")
-          setInWhishlist(!inWhishlist);
-        } else {
-          toast.error("Error al añadir el producto a la lista de deseos")
-        }
-      });
+      const res = await putWishlist(product._id);
+      if(res.ok){
+        dispatch(updateWishlist(product._id))
+        setInWhishlist(!inWhishlist);
+        toast.success("Producto añadido a la lista de deseos")
+      } else {
+        toast.error("Error al añadir el producto a la lista de deseos")
+      }
     }
   }
 

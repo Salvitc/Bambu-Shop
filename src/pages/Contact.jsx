@@ -1,15 +1,36 @@
 import React from "react";
-import { Form } from "react-router-dom";
 import { SectionTitle } from "../components";
-
+import { sendMail } from "../api/mail";
+import { toast } from "react-toastify";
 const Contact = () => {
+
+  const handleSend = async (event) => {
+    event.preventDefault()
+    const target = event.target;
+
+    const mailContent = {
+      from: target[2].value,
+      to: "bambushop.cadiz@gmail.com",
+      subject: target[0].value + " - " + target[1].value + " - " + target[3].value,
+      body: target[4].value,
+    }
+
+    const response = await sendMail(mailContent)
+    if (response.ok) {
+      toast.success("Mensaje enviado correctamente. ¡Nos pondremos en contacto contigo en breve!")
+    } else {
+      toast.error("Algo salió mal al mandar el correo: " + error)
+    }
+    document.getElementById("contact-form").reset()
+  }
+
   return (
     <>
       <SectionTitle title="Contacta con nosotros" path="Inicio | Contacto" />
       <div className="isolate px-6 lg:px-8">
-        <Form
-          action="#"
-          method="POST"
+        <form
+          id="contact-form"
+          onSubmit={handleSend}
           className="mx-auto mt-16 max-w-xl sm:mt-20"
         >
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -35,7 +56,7 @@ const Contact = () => {
                 htmlFor="last-name"
                 className="block text-sm font-semibold leading-6 text-accent-content"
               >
-                Apellidos 
+                Apellidos
               </label>
               <div className="mt-2.5">
                 <input
@@ -86,7 +107,7 @@ const Contact = () => {
                 htmlFor="message"
                 className="block text-sm font-semibold leading-6 text-accent-content"
               >
-                Mensaje 
+                Mensaje
               </label>
               <div className="mt-2.5">
                 <textarea
@@ -115,23 +136,22 @@ const Contact = () => {
                 </button>
               </div>
               <label className="text-sm leading-6 text-accent-content" id="switch-1-label">
-                    Al seleccionar esto, aceptas nuestra 
+                Al seleccionar esto, aceptas nuestra
                 <a href="#" className="font-semibold text-green-600">
-                &nbsp;política de&nbsp;privacidad
+                  &nbsp;política de&nbsp;privacidad
                 </a>
                 .
               </label>
             </div>
           </div>
           <div className="mt-10">
-            <button
+            <input
               type="submit"
               className="block w-full rounded-md bg-green-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Hablemos
-            </button>
+              value="Hablemos"
+            />
           </div>
-        </Form>
+        </form>
       </div>
     </>
   );
