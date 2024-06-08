@@ -16,7 +16,11 @@ const Shop = () => {
 
   useEffect(() => {
     getProducts().then((products) => {
-      dispatch(setProducts(products));
+      if (products === null) {
+        dispatch(setProducts(new Array()));
+      } else {
+        dispatch(setProducts(products));
+      }
     });
   }, [dispatch, reset]);
 
@@ -24,7 +28,7 @@ const Shop = () => {
     <>
       <SectionTitle title="La tienda" path="Inicio | Tienda" />
       <div className="max-w-7xl mx-auto mt-5">
-        <Filters 
+        <Filters
           setReset={setReset}
           reset={reset}
         />
