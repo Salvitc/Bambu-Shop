@@ -96,7 +96,7 @@ const Filters = ({ setReset, reset }) => {
       />
       <FormRange
         name="price"
-        label="select price"
+        label="Rango de precio"
         size="range-sm"
         price={40}
       />

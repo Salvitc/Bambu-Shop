@@ -4,7 +4,7 @@ export const getProducts = async () => {
   const response = await fetch('/api/product');
   return await response.json();
 }
- 
+
 export const getProduct = async (id) => {
   const response = await fetch(`/api/product/${id}`);
   return await response.json();
@@ -12,7 +12,7 @@ export const getProduct = async (id) => {
 
 export const getLoggedIn = async () => {
   const response = await fetch('/api/user/role');
-  
+
   if (response.ok) {
     return true;
   } else {
@@ -21,10 +21,10 @@ export const getLoggedIn = async () => {
 }
 
 export const logout = async () => {
-const response = await fetch('/api/logout', {
+  const response = await fetch('/api/logout', {
     method: 'POST',
   });
-return response;
+  return response;
 }
 
 export const register = async (regObj) => {
@@ -68,12 +68,12 @@ export const getUserData = async () => {
   return await user.json();
 }
 
-export const putWishlist = async(idProduct) => {
+export const putWishlist = async (idProduct) => {
   const user = await fetch("/api/user/token");
   const data = await user.json();
-  
+
   let json = data.wishlist;
-  if(json){
+  if (json) {
     json.push(idProduct);
   } else {
     json = [idProduct];
@@ -87,10 +87,10 @@ export const putWishlist = async(idProduct) => {
   return response;
 }
 
-export const putCart = async(product_id, price, amount) => {
+export const putCart = async (product_id, price, amount) => {
   const user = await fetch("/api/user/token");
   const data = await user.json();
-  
+
   const cartItem = {
     product_id,
     price,
@@ -98,15 +98,15 @@ export const putCart = async(product_id, price, amount) => {
   }
 
   let json = data.cart;
-  if(json){
+  if (json) {
     let exists = false;
     json.map((item) => {
-      if(item.product_id === product_id){
+      if (item.product_id === product_id) {
         item.amount += amount;
         exists = true;
       }
     })
-    if(!exists){
+    if (!exists) {
       json.push(cartItem)
     }
   } else {
@@ -122,28 +122,36 @@ export const putCart = async(product_id, price, amount) => {
   return response;
 }
 
-export const deleteFromWishlist = async(idProduct) => {
+export const getWishlist = async () => {
   const user = await fetch("/api/user/token");
   const data = await user.json();
-  
+
+  return data.wishlist ? data.wishlist : [];
+}
+
+
+export const deleteFromWishlist = async (newWishlist) => {
+  const user = await fetch("/api/user/token");
+  const data = await user.json();
+
   const response = await fetch(`/api/user/${data._id}/wishlist`, {
     method: "PUT",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(idProduct),
+    body: JSON.stringify(newWishlist),
   })
 
   return response;
 }
 
-export const deleteCartItem = async(product_id) => {
+export const deleteCartItem = async (product_id) => {
   const user = await fetch("/api/user/token");
   const data = await user.json();
-  
+
   let json = data.cart;
-  if(json){
+  if (json) {
     json = json.filter((item) => item.product_id !== product_id);
   }
-  
+
   const response = await fetch(`/api/user/${data._id}/cart`, {
     method: "PUT",
     headers: { "content-type": "application/json" },
@@ -165,7 +173,7 @@ export const currentCartToOrder = async () => {
 export const clearCart = async () => {
   const user = await fetch("/api/user/token");
   const data = await user.json();
-  
+
   const response = await fetch(`/api/user/${data._id}/cart`, {
     method: "PUT",
     headers: { "content-type": "application/json" },
@@ -178,7 +186,7 @@ export const clearCart = async () => {
 export const getOrders = async () => {
   const user = await fetch("/api/user/token");
   const data = await user.json();
-  
+
   const response = await fetch(`/api/order/${data._id}`);
   return await response.json();
 }
