@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const ProductElement = ({ id, title, image, rating, price, brandName }) => {
   return (
     <div className="max-w-2xl">
-      <div className="shadow-md rounded-lg max-w-sm bg-base-100">
+      <div className="shadow-md rounded-lg max-w-sm bg-slate-100">
         <Link to={`/shop/product/${id}`} onClick={() => window.scrollTo(0, 0)}>
           <img
             className="rounded-t-lg p-8"

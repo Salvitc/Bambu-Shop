@@ -57,7 +57,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="navbar bg-base-50 max-w-7xl mx-auto">
+      <div className="navbar bg-slate-50 max-w-7xl mx-auto">
         <div className="flex-1">
           <Link
             to="/"
@@ -107,7 +107,7 @@ const Header = () => {
                 <div className="card-actions">
                   <Link
                     to="/cart"
-                    className="btn bg-green-700 btn-block text-white hover:bg-green-900 text-base-content"
+                    className="btn bg-green-700 btn-block text-white hover:bg-green-900 text-slate-content"
                   >
                     Ver Carrito
                   </Link>
@@ -165,7 +165,7 @@ const Header = () => {
               className="drawer-overlay"
             ></label>
                     
-            <ul className="menu p-4 w-80 min-h-full bg-green-800 bg-opacity-50 text-base-content mt-4">
+            <ul className="menu p-4 w-80 min-h-full bg-green-800 bg-opacity-50 text-slate-content mt-4">
             <label htmlFor="my-drawer" className="btn drawer-button">
             <FaWindowClose className="text-3xl ml-auto" />
             </label>

@@ -50,7 +50,7 @@ const OrderHistory = () => {
             return (
               <div
                 key={nanoid()}
-                className="collapse collapse-plus bg-base-200 mb-2"
+                className="collapse collapse-plus bg-slate-200 mb-2"
               >
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium text-accent-content">

@@ -23,8 +23,8 @@ const Filters = ({ setReset, reset }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let productsList = await getProducts(); 
-    
+    let productsList = await getProducts();
+
     if (event.target.category.value !== "todos") {
       productsList = productsList.filter(
         (product) => product.category === event.target.category.value
@@ -34,14 +34,14 @@ const Filters = ({ setReset, reset }) => {
     productsList = productsList.filter(
       (product) => product.price <= event.target.price.value
     );
-    
+
     if (event.target.stock.checked) {
       productsList = productsList.filter(
         (product) => product.in_stock === event.target.stock.checked
       );
     }
 
-    if(event.target.search.value !== ""){
+    if (event.target.search.value !== "") {
       productsList = productsList.filter(
         (product) => product.name.toLowerCase().includes(event.target.search.value.toLowerCase())
       );
@@ -72,7 +72,7 @@ const Filters = ({ setReset, reset }) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4  gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
+    <Form onSubmit={handleSubmit} className="bg-slate-200 rounded-md px-8 py-4 grid gap-x-4  gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center mb-5">
       <FormInput
         type="search"
         label="Buscar producto"
@@ -111,7 +111,7 @@ const Filters = ({ setReset, reset }) => {
       >
         Buscar
       </button>
-      <button onClick={handleReset} className="btn btn-primary btn-sm">
+      <button onClick={handleReset} className="btn btn-primary btn-sm bg-green-600 hover:bg-green500 text-white">
         reset
       </button>
     </Form>

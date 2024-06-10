@@ -4,6 +4,9 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  daisyui: {
+    themes: [],
+  },
+  plugins: [require("@tailwindcss/typography"), require('daisyui')],
 }
 
