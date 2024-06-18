@@ -18,6 +18,7 @@ const Filters = ({ setReset, reset }) => {
   ];
 
   const handleReset = () => {
+    document.getElementById("filters-form").reset();
     setReset(!reset);
   }
 
@@ -72,7 +73,7 @@ const Filters = ({ setReset, reset }) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="bg-slate-200 rounded-md px-8 py-4 grid gap-x-4  gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center mb-5">
+    <Form onSubmit={handleSubmit} id="filters-form" className="bg-slate-200 rounded-md px-8 py-4 grid gap-x-4  gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center mb-5">
       <FormInput
         type="search"
         label="Buscar producto"
