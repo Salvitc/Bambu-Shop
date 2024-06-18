@@ -11,8 +11,6 @@ const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
 
   const { total } = useSelector((state) => state.cart);
-  const tax = total * 0.21;
-  const shipping = 5.99;
 
   const isCartEmpty = () => {
     if (cartItems.length === 0) {
@@ -30,7 +28,7 @@ const Cart = () => {
           <CartItemsList />
         </div>
         <div className='lg:col-span-4 lg:pl-4'>
-          <CartTotals total={total + shipping + tax} />
+          <CartTotals total={total} />
           {loginState ? (
             <button onClick={isCartEmpty} className='btn bg-green-700 hover:bg-green-900 text-white btn-block mt-8'>
               Procede al pago

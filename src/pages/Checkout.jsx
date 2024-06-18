@@ -13,13 +13,11 @@ const Checkout = () => {
   const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY)
 
   const { total } = useSelector((state) => state.cart);
-  const tax = total * 0.21;
-  const shipping = 5.99;
 
   useEffect(() => {
     setLoading(true);
     const fetchPaymentIntent = async () => {
-      const response = await createPaymentIntent((total + tax + shipping).toFixed(2) * 100);
+      const response = await createPaymentIntent((total + 5.99).toFixed(2) * 100);
       const { client_secret } = response;
       setClientSecret(client_secret);
     }
@@ -40,7 +38,7 @@ const Checkout = () => {
               </Elements>
             </div>
             <div className='lg:col-span-4 lg:pl-4'>
-              <CartTotals total={total + tax + shipping} />
+              <CartTotals total={total} />
             </div>
           </div>
       }

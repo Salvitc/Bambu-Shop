@@ -6,11 +6,7 @@ const CartTotals = ({ total }) => {
       <div className='card-body'>
         <p className='flex justify-between text-xs border-b border-slate-300 pb-2 text-accent-content'>
           <span>Subtotal</span>
-          <span className='font-medium'>{((total - 5.99) * 0.79).toFixed(2)}</span>
-        </p>
-        <p className='flex justify-between text-xs border-b border-slate-300 pb-2 text-accent-content'>
-          <span>Impuestos</span>
-          <span className='font-medium'>{(((total - 5.99) * 0.79) * 0.21).toFixed(2)}</span>
+          <span className='font-medium'>{total}</span>
         </p>
         <p className='flex justify-between text-xs border-b border-slate-300 pb-2 text-accent-content'>
           <span>Gastos de envío</span>
@@ -18,7 +14,7 @@ const CartTotals = ({ total }) => {
         </p>
         <p className='flex justify-between text-sm mt-4 pb-2 text-accent-content'>
           <span>Order Total</span>
-          <span className='font-medium'>{total.toFixed(2)} €</span>
+          <span className='font-medium'>{(total + 5.99).toFixed(2)} €</span>
         </p>
       </div>
     </div>
