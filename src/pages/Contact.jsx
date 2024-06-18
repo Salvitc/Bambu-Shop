@@ -2,10 +2,13 @@ import React from "react";
 import { SectionTitle } from "../components";
 import { sendMail } from "../api/mail";
 import { toast } from "react-toastify";
+import { useState } from "react";
 const Contact = () => {
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSend = async (event) => {
     event.preventDefault()
+    setIsLoading(true)
     const target = event.target;
 
     const mailContent = {
@@ -22,6 +25,7 @@ const Contact = () => {
       toast.error("Algo salió mal al mandar el correo: " + error)
     }
     document.getElementById("contact-form").reset()
+    setIsLoading(false)
   }
 
   return (
@@ -145,11 +149,52 @@ const Contact = () => {
             </div>
           </div>
           <div className="mt-10">
-            <input
+            <button
               type="submit"
-              className="block w-full rounded-md bg-green-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              value="Hablemos"
-            />
+              disabled={isLoading}
+              className="transition duration-200 bg-green-700 hover:bg-green-900 focus:bg-green-900 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+            >
+              {isLoading ? (
+                <svg
+                  className="animate-spin h-5 w-5 mx-auto"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  ></path>
+                </svg>
+              ) : (
+                <>
+                  <span className="inline-block mr-2">Contáctanos</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-4 h-4 inline-block"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </>
+              )}
+            </button>
           </div>
         </form>
       </div>
