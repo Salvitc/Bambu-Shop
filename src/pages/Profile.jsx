@@ -31,7 +31,7 @@ const Profile = () => {
         email: data.email,
         phone: data.phone,
         address: data.address,
-        password: data.password,
+        password: ""
       });
     } catch (error) {
       toast.error("Error: ", error.response);
@@ -53,7 +53,7 @@ const Profile = () => {
     setLoading(true);
     e.preventDefault();
     const response = await updateUser(userFormData);
-    
+
     if (response.ok) {
       toast.success("Perfil actualizado correctamente");
     }
@@ -64,94 +64,94 @@ const Profile = () => {
   return (
     <>
       <SectionTitle title="User Profile" path="Home | User Profile" />
-      { loading ? <div className="text-center">Cargando...</div> : 
-      <form className="max-w-7xl mx-auto text-center px-10" onSubmit={updateProfile}>
-        <div className="grid grid-cols-3 max-lg:grid-cols-1">
-          <div className="form-control w-full lg:max-w-xs">
-            <label className="label">
-              <span className="label-text">Nombre</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full lg:max-w-xs"
-              value={userFormData.name}
-              onChange={(e) => {setUserFormData({...userFormData, name: e.target.value})}}
-            />
-          </div>
+      {loading ? <div className="text-center">Cargando...</div> :
+        <form className="max-w-7xl mx-auto text-center px-10" onSubmit={updateProfile}>
+          <div className="grid grid-cols-3 max-lg:grid-cols-1">
+            <div className="form-control w-full lg:max-w-xs">
+              <label className="label">
+                <span className="label-text">Nombre</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full lg:max-w-xs"
+                value={userFormData.name}
+                onChange={(e) => { setUserFormData({ ...userFormData, name: e.target.value }) }}
+              />
+            </div>
 
-          <div className="form-control w-full lg:max-w-xs">
-            <label className="label">
-              <span className="label-text">Apellidos</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full lg:max-w-xs"
-              value={userFormData.lastname}
-              onChange={(e) => {setUserFormData({...userFormData, lastname: e.target.value})}}
-            />
-          </div>
+            <div className="form-control w-full lg:max-w-xs">
+              <label className="label">
+                <span className="label-text">Apellidos</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full lg:max-w-xs"
+                value={userFormData.lastname}
+                onChange={(e) => { setUserFormData({ ...userFormData, lastname: e.target.value }) }}
+              />
+            </div>
 
-          <div className="form-control w-full lg:max-w-xs">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              placeholder="Type here"
-              className="input input-bordered w-full lg:max-w-xs"
-              value={userFormData.email}
-              onChange={(e) => {setUserFormData({...userFormData, email: e.target.value})}}
-            />
-          </div>
+            <div className="form-control w-full lg:max-w-xs">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="Type here"
+                className="input input-bordered w-full lg:max-w-xs"
+                value={userFormData.email}
+                onChange={(e) => { setUserFormData({ ...userFormData, email: e.target.value }) }}
+              />
+            </div>
 
-          <div className="form-control w-full lg:max-w-xs">
-            <label className="label">
-              <span className="label-text">Teléfono</span>
-            </label>
-            <input
-              type="tel"
-              placeholder="Type here"
-              className="input input-bordered w-full lg:max-w-xs"
-              value={userFormData.phone}
-              onChange={(e) => {setUserFormData({...userFormData, phone: e.target.value})}}
-            />
-          </div>
+            <div className="form-control w-full lg:max-w-xs">
+              <label className="label">
+                <span className="label-text">Teléfono</span>
+              </label>
+              <input
+                type="tel"
+                placeholder="Type here"
+                className="input input-bordered w-full lg:max-w-xs"
+                value={userFormData.phone}
+                onChange={(e) => { setUserFormData({ ...userFormData, phone: e.target.value }) }}
+              />
+            </div>
 
-          <div className="form-control w-full lg:max-w-xs">
-            <label className="label">
-              <span className="label-text">Dirección</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full lg:max-w-xs"
-              value={userFormData.address}
-              onChange={(e) => {setUserFormData({...userFormData, address: e.target.value})}}
-            />
-          </div>
+            <div className="form-control w-full lg:max-w-xs">
+              <label className="label">
+                <span className="label-text">Dirección</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full lg:max-w-xs"
+                value={userFormData.address}
+                onChange={(e) => { setUserFormData({ ...userFormData, address: e.target.value }) }}
+              />
+            </div>
 
-          <div className="form-control w-full lg:max-w-xs">
-            <label className="label">
-              <span className="label-text">Contraseña</span>
-            </label>
-            <input
-              type="password"
-              placeholder="Type here"
-              className="input input-bordered w-full lg:max-w-xs"
-              value={userFormData.password}
-              onChange={(e) => {setUserFormData({...userFormData, password: e.target.value})}}
-            />
+            <div className="form-control w-full lg:max-w-xs">
+              <label className="label">
+                <span className="label-text">Contraseña</span>
+              </label>
+              <input
+                type="password"
+                placeholder="Type here"
+                className="input input-bordered w-full lg:max-w-xs"
+                value={userFormData.password}
+                onChange={(e) => { setUserFormData({ ...userFormData, password: e.target.value }) }}
+              />
+            </div>
           </div>
-        </div>
-        <button
-          className="btn btn-lg bg-green-700 hover:bg-green-900 text-white mt-10"
-          type="submit"
-        >
-          Actualizar perfil 
-        </button>
-      </form> }
+          <button
+            className="btn btn-lg bg-green-700 hover:bg-green-900 text-white mt-10"
+            type="submit"
+          >
+            Actualizar perfil
+          </button>
+        </form>}
     </>
   );
 };
