@@ -20,31 +20,31 @@ const Header = () => {
 
   const fetchCartWish = async () => {
     const user = await getUserData()
-    if(user){
+    if (user) {
       dispatch(updateWishlist(user.wishlist));
       dispatch(updateCart(user.cart));
     }
   };
-  
+
   const handleLogout = async () => {
-    logout().then((response) => {  
-      if(response){
+    logout().then((response) => {
+      if (response) {
         dispatch(logoutUser());
         navigate("/login");
       }
     });
   }
 
-  useEffect(() =>{
+  useEffect(() => {
     getLoggedIn()
-    .then((response) => {
-        if(response){
-          if(!logged){
+      .then((response) => {
+        if (response) {
+          if (!logged) {
             dispatch(loginUser());
           }
         }
-        else{
-          if(logged) {
+        else {
+          if (logged) {
             dispatch(logoutUser());
           }
         }
@@ -150,7 +150,7 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="navbar-bottom-menu bg-green-700 bg-opacity-20">
+      <div className="navbar-bottom-menu bg-green-700 bg-opacity-100">
         <div className="drawer">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
@@ -164,14 +164,14 @@ const Header = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-                    
-            <ul className="menu p-4 w-80 min-h-full bg-green-800 bg-opacity-50 text-slate-content mt-4">
-            <label htmlFor="my-drawer" className="btn drawer-button">
-            <FaWindowClose className="text-3xl ml-auto" />
-            </label>
+
+            <ul className="menu p-4 w-80 min-h-full bg-green-800 bg-opacity-100 text-white mt-4">
+              <label htmlFor="my-drawer" className="btn drawer-button">
+                <FaWindowClose className="text-3xl ml-auto" />
+              </label>
               <li className="text-xl">
                 <NavLink className="text-accent-content" to="/">
-                  Inicio 
+                  Inicio
                 </NavLink>
               </li>
               <li className="text-xl">
@@ -198,7 +198,7 @@ const Header = () => {
                   </li>
                   <li className="text-xl">
                     <NavLink className="text-accent-content" to="/register">
-                      Registro 
+                      Registro
                     </NavLink>
                   </li>
                 </>
