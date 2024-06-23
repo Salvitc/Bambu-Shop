@@ -14,7 +14,7 @@ const Contact = () => {
     const mailContent = {
       from: target[2].value,
       to: "bambushop.cadiz@gmail.com",
-      subject: target[0].value + " - " + target[1].value + " - " + target[3].value,
+      subject: target[0].value + " - " + target[1].value + " - " + target[2].value + " - " + target[3].value,
       body: target[4].value,
     }
 
